@@ -151,23 +151,9 @@ fun DropZoneComponent(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(BauhausColors.CadmiumYellow, RectangleShape)
-                                .border(2.dp, BauhausColors.FrameBlack)
-                        )
-                        GeometricTriangle(
-                            modifier = Modifier.size(24.dp),
-                            color = BauhausColors.CrimsonRed,
-                            borderColor = BauhausColors.FrameBlack
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(BauhausColors.CobaltBlue, CircleShape)
-                                .border(2.dp, BauhausColors.FrameBlack)
-                        )
+                        BauhausSquare(size = 24.dp, color = BauhausColors.CadmiumYellow, borderWidth = 2.dp)
+                        BauhausTriangle(size = 24.dp, color = BauhausColors.CrimsonRed, borderWidth = 2.dp)
+                        BauhausCircle(size = 24.dp, color = BauhausColors.CobaltBlue, borderWidth = 2.dp)
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))
@@ -252,31 +238,11 @@ fun DropZoneComponent(
 
                 else -> {
                     // 通常待機時: ■ ▲ ●
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // 赤い正方形
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(BauhausColors.CrimsonRed, RectangleShape)
-                                .border(2.dp, BauhausColors.FrameBlack)
-                        )
-                        // 黄色い正三角形
-                        GeometricTriangle(
-                            modifier = Modifier.size(24.dp),
-                            color = BauhausColors.CadmiumYellow,
-                            borderColor = BauhausColors.FrameBlack
-                        )
-                        // 青い円
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(BauhausColors.CobaltBlue, CircleShape)
-                                .border(2.dp, BauhausColors.FrameBlack)
-                        )
-                    }
+                    BauhausTrio(
+                        size = 24.dp,
+                        borderWidth = 2.dp,
+                        spacing = 16.dp
+                    )
 
                     Spacer(modifier = Modifier.height(24.dp))
 
