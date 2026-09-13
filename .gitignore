@@ -1,0 +1,48 @@
+# Gradle & Build Output
+.gradle/
+build/
+**/build/
+
+# Do not ignore Gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Kotlin
+.kotlin/
+
+# Local configuration
+local.properties
+
+# Bytecode & Generated output
+*.class
+bin/
+out/
+
+# Log Files & Crash Dumps
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# Sensitive Key & Credential files
+*.key
+*.pem
+*.jks
+*.keystore
+
+# IntelliJ IDEA & Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Agent
+.agent/
