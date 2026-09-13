@@ -16,6 +16,10 @@
 
 あらかじめ登録した接続先プロファイルに対し、ドラッグ＆ドロップで軽快にファイルを送信 (TOSS) し、リモートサーバーのファイルを一覧からワンクリックで受信 (CATCH) するWindows 11向けデスクトップアプリケーション。
 
+| TOSS (ファイル送信待機画面) | PROFILE / CATCH (プロファイル編集画面) |
+| :---: | :---: |
+| ![TOSS Screen](docs/images/screenshot-toss.png) | ![PROFILE Screen](docs/images/screenshot-profile.png) |
+
 ## 開発フロー・背景
 
 - Antigravity にてペアプログラミング開発
@@ -46,6 +50,10 @@ file-toss/
 ├── SPEC.md
 ├── README.md
 ├── .gitignore
+├── docs/
+│   └── images/
+│       ├── screenshot-toss.png                        - TOSS 画面のスクリーンショット
+│       └── screenshot-profile.png                     - プロファイル設定画面のスクリーンショット
 ├── gradle/
 │   └── wrapper/
 │       ├── gradle-wrapper.jar
