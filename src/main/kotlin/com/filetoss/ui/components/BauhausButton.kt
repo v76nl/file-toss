@@ -49,7 +49,10 @@ fun BauhausButton(
         label = "ButtonPressOffset"
     )
 
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier.padding(end = shadowOffset, bottom = shadowOffset),
+        propagateMinConstraints = true
+    ) {
         // 固定の黒シャドウ
         if (enabled && shadowOffset > 0.dp) {
             Box(
@@ -72,7 +75,7 @@ fun BauhausButton(
                     enabled = enabled,
                     onClick = onClick
                 )
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(horizontal = 14.dp, vertical = 9.dp),
             contentAlignment = Alignment.Center
         ) {
             Row(

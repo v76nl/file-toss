@@ -26,7 +26,7 @@ object BauhausColors {
 object BauhausDimens {
     val BorderWidth = 2.5.dp
     val ThickBorderWidth = 3.dp
-    val ShadowOffset = 4.dp
+    val ShadowOffset = 3.dp
 }
 
 val BauhausTypography = Typography(
