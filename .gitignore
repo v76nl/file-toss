@@ -12,6 +12,7 @@ build/
 
 # Local configuration
 local.properties
+*.vbs
 
 # Bytecode & Generated output
 *.class
