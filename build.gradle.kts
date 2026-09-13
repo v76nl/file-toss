@@ -61,6 +61,7 @@ compose.desktop {
 
 tasks.test {
     useJUnitPlatform()
+    maxHeapSize = "512m"
 }
 
 kotlin {
