@@ -309,6 +309,7 @@ fun ProfileEditForm(
     var authType by remember(profile) { mutableStateOf(profile.authType) }
     var privateKeyPath by remember(profile) { mutableStateOf(profile.privateKeyPath ?: "") }
     var remoteDir by remember(profile) { mutableStateOf(profile.remoteDirectory) }
+    var catchRemoteDir by remember(profile) { mutableStateOf(profile.effectiveCatchRemoteDirectory) }
     var localDir by remember(profile) { mutableStateOf(profile.localDirectory) }
     var colorTag by remember(profile) { mutableStateOf(profile.colorTag) }
 
@@ -320,6 +321,7 @@ fun ProfileEditForm(
         authType = authType,
         privateKeyPath = privateKeyPath.ifBlank { null },
         remoteDirectory = remoteDir,
+        catchRemoteDirectory = catchRemoteDir.ifBlank { null },
         localDirectory = localDir,
         colorTag = colorTag
     )
@@ -427,15 +429,25 @@ fun ProfileEditForm(
             )
         }
 
-        // リモートディレクトリ & ローカルディレクトリ
-        BauhausTextField(label = "REMOTE DIRECTORY (TOSS TARGET)", value = remoteDir, onValueChange = { remoteDir = it })
+        // ディレクトリ設定
+        BauhausTextField(
+            label = "TOSS TARGET (送信先リモートディレクトリ)",
+            value = remoteDir,
+            onValueChange = { remoteDir = it }
+        )
+
+        BauhausTextField(
+            label = "CATCH ROOT (受信元リモートディレクトリ / 根本)",
+            value = catchRemoteDir,
+            onValueChange = { catchRemoteDir = it }
+        )
 
         Row(
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             BauhausTextField(
-                label = "LOCAL DIRECTORY (CATCH TARGET)",
+                label = "CATCH LOCAL (保存先ローカルディレクトリ)",
                 value = localDir,
                 onValueChange = { localDir = it },
                 modifier = Modifier.weight(1f)
@@ -502,14 +514,28 @@ fun ProfileEditForm(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // 操作ボタン (テスト / 保存 / キャンセル)
+        // 下部アクションボタン
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             BauhausButton(
-                onClick = { onTest(currentProfile) },
+                onClick = onCancel,
                 backgroundColor = BauhausColors.Chalk,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "CANCEL",
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 12.sp,
+                    color = BauhausColors.FrameBlack
+                )
+            }
+
+            BauhausButton(
+                onClick = { onTest(currentProfile) },
+                backgroundColor = BauhausColors.CadmiumYellow,
                 enabled = !isTesting,
                 modifier = Modifier.weight(1f)
             ) {
@@ -537,6 +563,9 @@ fun ProfileEditForm(
                 )
             }
         }
+
+        // スクロール時に最下部が見切れないよう余白を確保
+        Spacer(modifier = Modifier.height(48.dp))
     }
 }
 

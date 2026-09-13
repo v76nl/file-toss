@@ -88,6 +88,8 @@ fun MainScreen(viewModel: MainViewModel) {
                             files = state.remoteFiles,
                             isLoading = state.isLoadingRemoteFiles,
                             onRefresh = { viewModel.refreshRemoteFiles() },
+                            onNavigateRoot = { viewModel.navigateRemoteRoot() },
+                            onNavigateUp = { viewModel.navigateRemoteUp() },
                             onFileCatch = { viewModel.catchFile(it) },
                             onDirectoryNavigate = { viewModel.navigateRemotePath(it) }
                         )
@@ -236,8 +238,13 @@ private fun TargetBanner(
                 color = BauhausColors.FrameBlack
             )
             Spacer(modifier = Modifier.width(6.dp))
+            val targetPath = if (currentMode == AppMode.TOSS) {
+                activeProfile.remoteDirectory
+            } else {
+                "${activeProfile.effectiveCatchRemoteDirectory}  ->  ${activeProfile.localDirectory}"
+            }
             Text(
-                text = "-> ${activeProfile.remoteDirectory}",
+                text = "-> $targetPath",
                 fontFamily = FontFamily.Monospace,
                 fontSize = 11.sp,
                 color = BauhausColors.MutedText,

@@ -43,6 +43,8 @@ fun RemoteBrowserComponent(
     files: List<RemoteFileInfo>,
     isLoading: Boolean,
     onRefresh: () -> Unit,
+    onNavigateRoot: () -> Unit,
+    onNavigateUp: () -> Unit,
     onFileCatch: (RemoteFileInfo) -> Unit,
     onDirectoryNavigate: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -55,7 +57,7 @@ fun RemoteBrowserComponent(
             .border(BauhausDimens.BorderWidth, BauhausColors.FrameBlack, RectangleShape)
             .padding(16.dp)
     ) {
-        // パス表示バー & 更新ボタン
+        // パス表示バー & 操作ボタン (ROOT / UP / REFRESH)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,20 +90,54 @@ fun RemoteBrowserComponent(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            BauhausButton(
-                onClick = onRefresh,
-                backgroundColor = BauhausColors.CadmiumYellow,
-                borderWidth = 2.dp,
-                shadowOffset = 2.dp,
-                enabled = !isLoading
-            ) {
-                Text(
-                    text = if (isLoading) "SYNCING..." else "[ REFRESH ]",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 11.sp,
-                    color = BauhausColors.FrameBlack
-                )
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                BauhausButton(
+                    onClick = onNavigateRoot,
+                    backgroundColor = BauhausColors.Chalk,
+                    borderWidth = 1.5.dp,
+                    shadowOffset = 1.dp,
+                    enabled = !isLoading
+                ) {
+                    Text(
+                        text = "ROOT",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 11.sp,
+                        color = BauhausColors.FrameBlack
+                    )
+                }
+
+                BauhausButton(
+                    onClick = onNavigateUp,
+                    backgroundColor = BauhausColors.Chalk,
+                    borderWidth = 1.5.dp,
+                    shadowOffset = 1.dp,
+                    enabled = !isLoading
+                ) {
+                    Text(
+                        text = "UP",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 11.sp,
+                        color = BauhausColors.FrameBlack
+                    )
+                }
+
+                BauhausButton(
+                    onClick = onRefresh,
+                    backgroundColor = BauhausColors.CadmiumYellow,
+                    borderWidth = 1.5.dp,
+                    shadowOffset = 1.dp,
+                    enabled = !isLoading
+                ) {
+                    Text(
+                        text = if (isLoading) "SYNCING..." else "REFRESH",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 11.sp,
+                        color = BauhausColors.FrameBlack
+                    )
+                }
             }
         }
 

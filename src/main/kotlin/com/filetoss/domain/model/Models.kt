@@ -33,10 +33,14 @@ data class TransferProfile(
     val privateKeyPath: String? = null,
     val remoteDirectory: String,
     val localDirectory: String,
+    val catchRemoteDirectory: String? = null,
     val colorTag: BauhausColor = BauhausColor.RED,
     val encryptedPassword: String? = null,
     val encryptedPassphrase: String? = null
-)
+) {
+    val effectiveCatchRemoteDirectory: String
+        get() = catchRemoteDirectory?.ifBlank { null } ?: remoteDirectory
+}
 
 data class AuthCredentials(
     val password: String? = null,

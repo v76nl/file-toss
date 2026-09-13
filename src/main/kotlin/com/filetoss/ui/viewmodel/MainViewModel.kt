@@ -80,11 +80,16 @@ class MainViewModel(
         viewModelScope.launch {
             val profiles = profileRepository.getProfiles()
             val active = profileRepository.getActiveProfile()
+            val initialPath = if (_uiState.value.mode == AppMode.CATCH) {
+                active?.effectiveCatchRemoteDirectory ?: ""
+            } else {
+                active?.remoteDirectory ?: ""
+            }
             _uiState.update {
                 it.copy(
                     profiles = profiles,
                     activeProfile = active,
-                    currentRemotePath = active?.remoteDirectory ?: ""
+                    currentRemotePath = initialPath
                 )
             }
             if (active != null) {
@@ -94,7 +99,13 @@ class MainViewModel(
     }
 
     fun setMode(mode: AppMode) {
-        _uiState.update { it.copy(mode = mode) }
+        val active = _uiState.value.activeProfile
+        val path = if (mode == AppMode.CATCH) {
+            active?.effectiveCatchRemoteDirectory ?: _uiState.value.currentRemotePath
+        } else {
+            active?.remoteDirectory ?: _uiState.value.currentRemotePath
+        }
+        _uiState.update { it.copy(mode = mode, currentRemotePath = path) }
         if (mode == AppMode.CATCH) {
             refreshRemoteFiles()
         }
@@ -116,10 +127,15 @@ class MainViewModel(
         viewModelScope.launch {
             profileRepository.setActiveProfileId(profileId)
             val active = profileRepository.getActiveProfile()
+            val path = if (_uiState.value.mode == AppMode.CATCH) {
+                active?.effectiveCatchRemoteDirectory ?: ""
+            } else {
+                active?.remoteDirectory ?: ""
+            }
             _uiState.update {
                 it.copy(
                     activeProfile = active,
-                    currentRemotePath = active?.remoteDirectory ?: "",
+                    currentRemotePath = path,
                     isSidebarOpen = false
                 )
             }
@@ -381,5 +397,17 @@ class MainViewModel(
     fun navigateRemotePath(path: String) {
         _uiState.update { it.copy(currentRemotePath = path) }
         refreshRemoteFiles()
+    }
+
+    fun navigateRemoteRoot() {
+        val root = _uiState.value.activeProfile?.effectiveCatchRemoteDirectory ?: return
+        navigateRemotePath(root)
+    }
+
+    fun navigateRemoteUp() {
+        val current = _uiState.value.currentRemotePath.trimEnd('/')
+        val parent = current.substringBeforeLast('/', missingDelimiterValue = "")
+        val target = if (parent.isEmpty()) "/" else parent
+        navigateRemotePath(target)
     }
 }
