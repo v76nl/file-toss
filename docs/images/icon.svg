@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="plate-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="8" dy="10" stdDeviation="6" flood-color="#1A1A1A" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- 背景プレート -->
+  <rect x="24" y="24" width="464" height="464" rx="80" ry="80" fill="#F5F3EC" stroke="#1A1A1A" stroke-width="10" filter="url(#plate-shadow)"/>
+
+  <!-- 統一ソリッドシャドウ -->
+  <g fill="#1A1A1A">
+    <polygon points="152.0,230.0 172.0,250.0 252.0,376.0 232.0,376.0"/>
+    <rect x="304.0" y="260.0" width="134.0" height="134.0"/>
+    <circle cx="358.0" cy="170.0" r="74.0"/>
+  </g>
+
+  <!-- 赤い正方形 -->
+  <rect x="286.0" y="242.0" width="134.0" height="134.0" fill="#D93829" stroke="#1A1A1A" stroke-width="14" stroke-linejoin="miter"/>
+
+  <!-- 黄色い三角形 -->
+  <polygon points="152.0,230.0 232.0,376.0 72.0,376.0" fill="#F3BE22" stroke="#1A1A1A" stroke-width="14" stroke-linejoin="miter"/>
+
+  <!-- 青い円 -->
+  <circle cx="340.0" cy="152.0" r="74.0" fill="#205493" stroke="#1A1A1A" stroke-width="14"/>
+
+  <!-- トスアロー (クリーンな直角オープンアロー: トゲ・乱れゼロ) -->
+  <g stroke="#1A1A1A" stroke-width="14" stroke-linecap="butt" stroke-linejoin="miter" fill="none">
+    <line x1="166" y1="290" x2="237" y2="218"/>
+    <polyline points="210.0,210.0 246.0,210.0 246.0,246.0"/>
+  </g>
+</svg>

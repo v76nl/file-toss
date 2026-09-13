@@ -54,6 +54,7 @@ compose.desktop {
             windows {
                 menuGroup = "file-toss"
                 shortcut = true
+                iconFile.set(project.file("src/main/resources/icons/icon.ico"))
             }
         }
     }

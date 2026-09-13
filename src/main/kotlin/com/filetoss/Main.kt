@@ -26,12 +26,23 @@ fun main() = application {
     val sftpClient = remember { SftpTransferClient() }
     val viewModel = remember { MainViewModel(repository, credentialStore, sftpClient) }
 
+    val iconPainter = remember {
+        try {
+            Thread.currentThread().contextClassLoader.getResourceAsStream("icons/icon.png")?.use { stream ->
+                androidx.compose.ui.res.loadImageBitmap(stream)
+            }?.let { androidx.compose.ui.graphics.painter.BitmapPainter(it) }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     Window(
         onCloseRequest = {
             sftpClient.close()
             exitApplication()
         },
         title = "file-toss",
+        icon = iconPainter,
         state = WindowState(width = 980.dp, height = 720.dp)
     ) {
         // Swing DropTarget を Window および contentPane にアタッチ
