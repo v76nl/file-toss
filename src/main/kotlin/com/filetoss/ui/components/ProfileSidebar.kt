@@ -34,7 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -454,7 +454,7 @@ fun ProfileEditForm(
             }
         }
 
-        // カラータグ選択
+        // 識別シンボル（幾何学タグ）選択
         Text(
             text = "COLOR TAG",
             fontWeight = FontWeight.Bold,
@@ -462,18 +462,25 @@ fun ProfileEditForm(
             fontSize = 11.sp,
             color = BauhausColors.FrameBlack
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            BauhausColor.entries.forEach { color ->
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            val shapes = listOf(
+                BauhausColor.RED,
+                BauhausColor.YELLOW,
+                BauhausColor.BLUE
+            )
+            shapes.forEach { color ->
+                val isSelected = colorTag == color
                 Box(
+                    contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(28.dp)
+                        .size(36.dp)
+                        .background(if (isSelected) BauhausColors.PaperWhite else BauhausColors.Chalk, RectangleShape)
                         .border(
-                            width = if (colorTag == color) 3.dp else 1.dp,
-                            color = if (colorTag == color) BauhausColors.FrameBlack else BauhausColors.BorderGray
+                            width = if (isSelected) 2.5.dp else 1.dp,
+                            color = if (isSelected) BauhausColors.FrameBlack else BauhausColors.BorderGray,
+                            shape = RectangleShape
                         )
                         .clickable { colorTag = color }
-                        .padding(4.dp),
-                    contentAlignment = Alignment.Center
                 ) {
                     BauhausProfileIcon(colorTag = color, size = 18.dp)
                 }
@@ -552,13 +559,22 @@ fun BauhausTextField(
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
+            textStyle = TextStyle(
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold,
+                fontSize = 17.sp,
+                color = BauhausColors.FrameBlack
+            ),
+            shape = RectangleShape,
             visualTransformation = if (isPassword) PasswordVisualTransformation() else androidx.compose.ui.text.input.VisualTransformation.None,
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = BauhausColors.PaperWhite,
                 unfocusedContainerColor = BauhausColors.PaperWhite,
                 focusedIndicatorColor = BauhausColors.FrameBlack,
-                unfocusedIndicatorColor = BauhausColors.FrameBlack,
+                unfocusedIndicatorColor = BauhausColors.BorderGray,
+                focusedTextColor = BauhausColors.FrameBlack,
+                unfocusedTextColor = BauhausColors.FrameBlack,
                 cursorColor = BauhausColors.FrameBlack
             )
         )
