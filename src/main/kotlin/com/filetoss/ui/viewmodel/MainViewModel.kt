@@ -193,6 +193,10 @@ class MainViewModel(
         }
     }
 
+    fun getDecryptedCredentials(profile: TransferProfile): AuthCredentials {
+        return resolveCredentials(profile)
+    }
+
     private fun resolveCredentials(profile: TransferProfile, inputCreds: AuthCredentials? = null): AuthCredentials {
         val pwd = inputCreds?.password?.takeIf { it.isNotEmpty() }
             ?: profile.encryptedPassword?.let { credentialStore.decrypt(it) }

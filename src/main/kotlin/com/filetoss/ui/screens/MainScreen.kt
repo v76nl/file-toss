@@ -114,6 +114,7 @@ fun MainScreen(viewModel: MainViewModel) {
             onTestConnection = { profile, credentials -> viewModel.testConnection(profile, credentials) },
             testConnectionResult = state.testConnectionResult,
             isTestingConnection = state.isTestingConnection,
+            onGetCredentials = { viewModel.getDecryptedCredentials(it) },
             onClose = { viewModel.closeSidebar() },
             modifier = Modifier.align(Alignment.TopStart)
         )

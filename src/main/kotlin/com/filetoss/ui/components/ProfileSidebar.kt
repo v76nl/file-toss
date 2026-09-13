@@ -62,6 +62,7 @@ fun ProfileSidebar(
     onTestConnection: (TransferProfile, AuthCredentials) -> Unit,
     testConnectionResult: Boolean?,
     isTestingConnection: Boolean,
+    onGetCredentials: (TransferProfile) -> AuthCredentials,
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -215,8 +216,9 @@ fun ProfileSidebar(
                                             BauhausButton(
                                                 onClick = {
                                                     editingProfile = profile
-                                                    inputPassword = ""
-                                                    inputPassphrase = ""
+                                                    val creds = onGetCredentials(profile)
+                                                    inputPassword = creds.password ?: ""
+                                                    inputPassphrase = creds.passphrase ?: ""
                                                     isEditing = true
                                                 },
                                                 backgroundColor = BauhausColors.Chalk,
